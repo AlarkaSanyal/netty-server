@@ -15,9 +15,8 @@ import java.util.Properties;
 
 public class NettyServerApplication {
 
-    private static final Logger logger = LoggerFactory.getLogger(NettyServerApplication.class);
-
     public static final String APPLICATION_PROPERTIES = "application.properties";
+    private static final Logger logger = LoggerFactory.getLogger(NettyServerApplication.class);
     private static int port;
     private static int delay;
     private static int maxFrameLength;
@@ -26,30 +25,6 @@ public class NettyServerApplication {
     public static void main(String[] args) {
         loadProperties(APPLICATION_PROPERTIES);
         new NettyServerApplication().run();
-    }
-
-    public void run() {
-        logger.info("Starting server on port: " + port);
-
-        EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
-        try {
-
-            ServerBootstrap serverBootstrap = new ServerBootstrap();
-            serverBootstrap.localAddress(port)
-                    .group(eventLoopGroup)
-                    .channel(NioServerSocketChannel.class)
-                    .option(ChannelOption.SO_KEEPALIVE, false)
-                    .childHandler(new ServerChannelInitializer(delay, maxFrameLength, allHeartbeatTimeout))
-                    .bind()
-                    .channel()
-                    .closeFuture()
-                    .sync();
-
-        } catch (Exception e) {
-            logger.error("Error in server bootstraping", e);
-        } finally {
-            eventLoopGroup.shutdownGracefully();
-        }
     }
 
     /**
@@ -77,5 +52,29 @@ public class NettyServerApplication {
         }
 
         logger.info("Properties loaded successfully");
+    }
+
+    public void run() {
+        logger.info("Starting server on port: " + port);
+
+        EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
+        try {
+
+            ServerBootstrap serverBootstrap = new ServerBootstrap();
+            serverBootstrap.localAddress(port)
+                    .group(eventLoopGroup)
+                    .channel(NioServerSocketChannel.class)
+                    .option(ChannelOption.SO_KEEPALIVE, false)
+                    .childHandler(new ServerChannelInitializer(delay, maxFrameLength, allHeartbeatTimeout))
+                    .bind()
+                    .channel()
+                    .closeFuture()
+                    .sync();
+
+        } catch (Exception e) {
+            logger.error("Error in server bootstraping", e);
+        } finally {
+            eventLoopGroup.shutdownGracefully();
+        }
     }
 }

@@ -16,9 +16,8 @@ import java.util.concurrent.TimeUnit;
 
 public class ServerChannelInitializer extends ChannelInitializer<Channel> {
 
-    private static final Logger logger = LoggerFactory.getLogger(ServerChannelInitializer.class);
-
     public static final byte CARRIAGE_RETURN_BYTE = 0X0D;
+    private static final Logger logger = LoggerFactory.getLogger(ServerChannelInitializer.class);
     private int delay;
     private int maxFrameLength = 700;
     private int readerHeartbeatTimeout = 0;
