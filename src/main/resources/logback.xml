@@ -1,0 +1,21 @@
+<configuration>
+    <property name="logLocation" value="/tmp"/>
+    <appender name="serverlog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logLocation}/netty-server.log</file>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <maxIndex>5</maxIndex>
+            <FileNamePattern>${logLocation}/netty-server.log.%i</FileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <logger name="org.springframework.boot.autoconfigure" level="WARN"/>
+    <root level="INFO">
+        <appender-ref ref="serverlog" />
+    </root>
+</configuration>
