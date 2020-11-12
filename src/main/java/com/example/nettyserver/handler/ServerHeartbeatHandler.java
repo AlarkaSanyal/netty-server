@@ -5,8 +5,11 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleStateEvent;
+import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static com.example.nettyserver.utilities.Utilities.CARRIAGE_RETURN_BYTE;
 
 public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
 
@@ -20,7 +23,7 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
         // If IdleStateEvent is received, then send heartbeat message (and close on failure)
         if (evt instanceof IdleStateEvent) {
             logger.info("IdleState event is received. Heartbeat message is being fired");
-            ctx.writeAndFlush(Unpooled.copiedBuffer(heartbeat_message.getBytes()))
+            ctx.writeAndFlush(Unpooled.copiedBuffer(ArrayUtils.add(heartbeat_message.getBytes(), CARRIAGE_RETURN_BYTE)))
                     .addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
 
             // Else, pass the message to the next handler
