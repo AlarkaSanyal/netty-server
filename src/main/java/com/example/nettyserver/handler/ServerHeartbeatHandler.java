@@ -12,7 +12,7 @@ public class ServerHeartbeatHandler extends ChannelInboundHandlerAdapter {
 
     private static final Logger logger = LoggerFactory.getLogger(ServerHeartbeatHandler.class);
 
-    private static String heartbeat_message = "This is a Heartbeat message";
+    private static String heartbeat_message = "Heartbeat";
 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {

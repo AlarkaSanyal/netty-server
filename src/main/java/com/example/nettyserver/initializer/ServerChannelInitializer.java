@@ -14,9 +14,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
+import static com.example.nettyserver.utilities.Utilities.CARRIAGE_RETURN_BYTE;
+
 public class ServerChannelInitializer extends ChannelInitializer<Channel> {
 
-    public static final byte CARRIAGE_RETURN_BYTE = 0X0D;
     private static final Logger logger = LoggerFactory.getLogger(ServerChannelInitializer.class);
     private int delay;
     private int maxFrameLength = 700;

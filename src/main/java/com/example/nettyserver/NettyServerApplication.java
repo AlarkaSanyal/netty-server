@@ -67,6 +67,7 @@ public class NettyServerApplication {
                     .option(ChannelOption.SO_KEEPALIVE, false)
                     .childHandler(new ServerChannelInitializer(delay, maxFrameLength, allHeartbeatTimeout))
                     .bind()
+                    .sync()
                     .channel()
                     .closeFuture()
                     .sync();

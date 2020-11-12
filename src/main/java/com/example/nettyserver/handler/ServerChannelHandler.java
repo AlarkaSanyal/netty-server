@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
+import static com.example.nettyserver.utilities.Utilities.CARRIAGE_RETURN_BYTE;
 import static com.example.nettyserver.utilities.Utilities.getByteArray;
 
 public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
@@ -18,6 +19,7 @@ public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(ServerChannelHandler.class);
 
     private int delay;
+    String model;
 
     public ServerChannelHandler(int delay) {
 
@@ -44,6 +46,18 @@ public class ServerChannelHandler extends ChannelInboundHandlerAdapter {
     // Process response
     private byte[] getOutput(byte[] inputArray) {
 
-        return ArrayUtils.addAll(inputArray, "Response".getBytes());
+        String color = new String(inputArray);
+        logger.info("Input Color: " + color);
+        logger.info("Input Length: " + inputArray.length);
+
+        if (color.contains("red")) {
+            model = "Nissan";
+        } else if (color.contains("blue")) {
+            model = "Honda";
+        } else {
+            model = "Kia";
+        }
+
+        return ArrayUtils.add(model.getBytes(), CARRIAGE_RETURN_BYTE);
     }
 }
