@@ -1,6 +1,6 @@
 # netty-server
 
-#Description
+# Description
 A simple Netty Server application example. This can be played with the project `netty-client` for a demo on how Netty works.
 
 ## Prereq
